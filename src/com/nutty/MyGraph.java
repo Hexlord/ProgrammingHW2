@@ -7,10 +7,7 @@
 
 package com.nutty;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.nutty.MyGraph.BFSVertexVisitStatus.NOT_VISITED;
 import static com.nutty.MyGraph.BFSVertexVisitStatus.VISITED;
@@ -34,12 +31,12 @@ public class MyGraph implements Graph {
         }
     }
     
-    Set<Vertex> vertexList;
+    ArrayList<Vertex> vertexList;
     Map<Vertex, Set<Vertex>> connectedVertexIdListMap;
     
     public MyGraph(int vertexCount) {
         
-        vertexList = new HashSet<Vertex>();
+        vertexList = new ArrayList<Vertex>();
         connectedVertexIdListMap = new HashMap<Vertex, Set<Vertex>>();
         
         for (int i = 0;
@@ -63,22 +60,8 @@ public class MyGraph implements Graph {
         connectedVertexIdList.add(v1);
     }
     
-    public Vertex at(int offset) {
-        int i = 0;
-        
-        for (Vertex v : vertexList) {
-            if (i == offset) {
-                return v;
-            }
-            
-            ++i;
-        }
-        
-        return null;
-    }
-    
     @Override
-    public Set<Vertex> getVertexList() {
+    public ArrayList<Vertex> getVertexList() {
         return vertexList;
     }
     
@@ -98,9 +81,9 @@ public class MyGraph implements Graph {
     }
     
     static class BFSVertexInfo {
-        private BFSVertexVisitStatus visitStatus;
-        private int distance;
-        private Vertex previous;
+        private final BFSVertexVisitStatus visitStatus;
+        private final int distance;
+        private final Vertex previous;
         
         public BFSVertexInfo() {
             visitStatus = NOT_VISITED;
@@ -127,6 +110,7 @@ public class MyGraph implements Graph {
         public Vertex getPrevious() {
             return previous;
         }
+        
     }
     
     public static int performBFS(MyGraph g,
@@ -134,7 +118,7 @@ public class MyGraph implements Graph {
                                  Vertex end) {
         
         
-        Set<Vertex> vertexList = g.getVertexList();
+        ArrayList<Vertex> vertexList = g.getVertexList();
         Map<Vertex, BFSVertexInfo> vertexInfoList =
                 new HashMap<Vertex, BFSVertexInfo>();
         
@@ -148,11 +132,12 @@ public class MyGraph implements Graph {
                         0,
                         null));
         
-        Set<Vertex> queue = new HashSet<Vertex>();
+        
+        Deque<Vertex> queue = new ArrayDeque<Vertex>();
         queue.add(start);
         
         while (queue.size() > 0) {
-            Set<Vertex> newQueue = new HashSet<Vertex>();
+            Deque<Vertex> newQueue = new ArrayDeque<Vertex>();
             
             for (Vertex from : queue) {
                 

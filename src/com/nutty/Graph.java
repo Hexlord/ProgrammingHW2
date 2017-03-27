@@ -1,5 +1,6 @@
 package com.nutty;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ public interface Graph {
         String getName();
     }
     
-    Set<Vertex> getVertexList();
+    List<Vertex> getVertexList();
     
     Set<Vertex> getNeighbors(Vertex v);
     
