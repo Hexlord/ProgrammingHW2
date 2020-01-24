@@ -1,3 +1,1 @@
-# ProgrammingHW2
-
-Test, finished at home
+Java algorithm of BFS search on a graph, completed during studies.
